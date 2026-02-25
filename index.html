@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Happy Birthday Bhai 🎂</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            overflow-x: hidden;
+            color: white;
+        }
+
+        h1 {
+            margin-top: 50px;
+            font-size: 40px;
+        }
+
+        img {
+            width: 220px;
+            border-radius: 50%;
+            margin-top: 20px;
+            border: 5px solid white;
+        }
+
+        button {
+            padding: 15px 25px;
+            font-size: 18px;
+            border: none;
+            background: white;
+            color: #ff4d6d;
+            cursor: pointer;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        /* Balloons */
+        .balloon {
+            position: absolute;
+            bottom: -100px;
+            width: 50px;
+            height: 70px;
+            background: red;
+            border-radius: 50%;
+            animation: float 8s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-110vh); }
+        }
+
+        /* Cake */
+        .cake {
+            font-size: 80px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: transform 0.5s;
+        }
+
+        .cut {
+            transform: rotate(-20deg);
+        }
+
+        /* Fireworks */
+        .firework {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: yellow;
+            border-radius: 50%;
+            animation: explode 1s ease-out forwards;
+        }
+
+        @keyframes explode {
+            to {
+                transform: scale(15);
+                opacity: 0;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<h1>🎉 Happy Birthday Bhai 🎉</h1>
+
+<img src="brother1.jpg.jpg">
+<img src="brother2.jpg.jpg">
+<img src="brother3.jpg.jpg">
+<img src="brother4.jpg.jpg">
+<img src="brother5.jpg.jpg">
+
+<h2 id="typing"></h2>
+
+<div class="cake" onclick="cutCake()">🎂</div>
+
+<button onclick="surprise()">Click for Surprise 🎁</button>
+
+<audio id="music" autoplay loop muted>
+    <source src="punjabi.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+// Typing Effect
+let text = "You are my biggest support ❤️";
+let index = 0;
+function typeEffect() {
+    if (index < text.length) {
+        document.getElementById("typing").innerHTML += text.charAt(index);
+        index++;
+        setTimeout(typeEffect, 50);
+    }
+}
+typeEffect();
+
+window.addEventListener("click", function () {
+    let audio = document.getElementById("music");
+    audio.muted = false;
+    audio.play();
+}, { once: true });
+
+// Cake Cutting
+function cutCake() {
+
+    document.querySelector(".cake").classList.add("cut");
+
+    let audio = document.getElementById("music");
+
+    audio.muted = false;
+    audio.currentTime = 0;
+
+    let playPromise = audio.play();
+
+    if (playPromise !== undefined) {
+        playPromise.then(_ => {
+            console.log("Audio started");
+        })
+        .catch(error => {
+            alert("Tap anywhere once then click cake again 😅");
+        });
+    }
+
+    alert("Cake Cut Successfully 🎂❤️");
+}
+// Fireworks Surprise
+function surprise() {
+    for (let i = 0; i < 20; i++) {
+        let firework = document.createElement("div");
+        firework.className = "firework";
+        firework.style.top = Math.random() * window.innerHeight + "px";
+        firework.style.left = Math.random() * window.innerWidth + "px";
+        document.body.appendChild(firework);
+
+        setTimeout(() => {
+            firework.remove();
+        }, 1000);
+    }
+    alert("Love You So Much Bhai! 🎆❤️");
+}
+
+// Balloons Generator
+for (let i = 0; i < 15; i++) {
+    let balloon = document.createElement("div");
+    balloon.className = "balloon";
+    balloon.style.left = Math.random() * window.innerWidth + "px";
+    balloon.style.background = `hsl(${Math.random()*360}, 70%, 60%)`;
+    balloon.style.animationDuration = (5 + Math.random()*5) + "s";
+    document.body.appendChild(balloon);
+}
+
+</script>
+
+</body>
+</html>
